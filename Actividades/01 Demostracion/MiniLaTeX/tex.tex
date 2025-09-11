@@ -1,0 +1,99 @@
+\documentclass[10pt,a4paper]{article} % Compila con lualatex o xelatex
+
+% --- Layout & links ---
+\usepackage[margin=1.5in]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+% --- Fuentes (texto y matemáticas) ---
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+\usepackage{fontspec}
+\setmainfont{EB Garamond}[
+    UprightFont = * Regular,
+    ItalicFont = * Italic,
+    BoldFont = * SemiBold,
+    BoldItalicFont = * SemiBold Italic,
+]
+
+
+% --- Secciones y subsecciones ---
+\usepackage{titlesec}
+
+\newfontface\bold{EB Garamond Bold}
+\newfontface\bolditalic{EB Garamond  Bold Italic}
+\newfontface\extrabold{EB Garamond ExtraBold}
+
+\titleformat{\section}
+  {\bold\Large}{\thesection}{0.5em}{}
+\titleformat{\subsection}
+  {\bold\large}{\thesubsection}{0.5em}{}
+
+
+% --- Encabezado simple ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textsc{AI in Financial Services}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.05pt}
+
+
+% --- Espaciado ---
+\usepackage{setspace}
+\setstretch{1.25}
+
+% --- Quitar sangría y espacio entre párrafos ---
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+\vspace*{-5em}
+\begin{center}
+  \LARGE\extrabold{Teoría de Juegos}\\
+  \vspace{0.5em}
+  \scriptsize\textnormal{José Angel, Nuria, Heriberto}
+  \vspace{2em}
+\end{center}
+
+\begin{center}
+  The strategy profile $s^{D}\in S$ is a strict dominant strategy\\ equilibrium if $s_i^{D}\in S_i$ is a strict dominant strategy for all $i\in N$.
+\end{center}
+
+
+\vspace{2em}
+\textbf{Prueba por contradicción.} 
+
+Queremos demostrar que si existe un equilibrio en estrategias estrictamente dominantes $s^{D}$, entonces es único. Para ello, supongamos que hay dos perfiles distintos de equilibrio en estrategias estrictamente dominantes, $s^{D}\neq t^{D}$. Elige un jugador $j$ tal que $s^{D}_{j}\neq t^{D}_{j}$.
+
+\vspace{2em}
+Como $s^{D}_{j}$ es estrictamente dominante para $j$, para todo $s_{-j}$ y toda $a\neq s^{D}_{j}$, 
+$$v_j(s^{D}_{j},s_{-j})>v_j(a,s_{-j}).$$ 
+Tomando $s_{-j}=t_{-j}^{D}$ y $a=t^{D}_{j}$, se obtiene
+$$v_j(s^{D}_{j},t^{D}_{-j})>v_j(t^{D}_{j},t^{D}_{-j}). \quad (1)$$
+
+\vspace{2em}
+Como $t^{D}_{j}$ también sería estrictamente dominante para $j$, para todo $s_{-j}$ y toda $a\neq t^{D}_{j}$,
+$$
+v_j(t^{D}_{j},s_{-j})>v_j(a,s_{-j}).
+$$
+Tomando $s_{-j}=s^{D}_{-j}$ y $a=s^{D}_{j}$, se obtiene
+$$
+v_j(t^{D}_{j},s^{D}_{-j})>v_j(s^{D}_{j},s^{D}_{-j}). \quad (2)
+$$
+
+
+\vspace{2em}
+Pero (2) contradice la dominancia estricta de $s^{D}_{j}$ evaluada en $s^{D}_{-j}$, que exige
+
+$$
+v_j(s^{D}_{j},s^{D}_{-j})>v_j(t^{D}_{j},s^{D}_{-j}).
+$$
+
+\vspace{2em}
+La contradicción muestra que no pueden existir dos perfiles distintos. Por tanto, el equilibrio en estrategias estrictamente dominantes es único.
+
+
+\end{document}
