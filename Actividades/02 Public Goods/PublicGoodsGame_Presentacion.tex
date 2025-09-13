@@ -1,0 +1,127 @@
+
+\documentclass[aspectratio=169]{beamer}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{booktabs}
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\usepackage{fontspec}
+\setmainfont{EB Garamond}[
+  UprightFont = * Regular,
+  ItalicFont = * Italic,
+  BoldFont = * SemiBold,
+  BoldItalicFont = * SemiBold Italic,
+]
+\setsansfont{EB Garamond}[
+  UprightFont = * Regular,
+  ItalicFont = * Italic,
+  BoldFont = * SemiBold,
+  BoldItalicFont = * SemiBold Italic,
+]
+\usetheme{metropolis}
+% No additional code needed here; your fontspec settings are correct.
+% If the font is not applying, check that:
+% 1. You are compiling with XeLaTeX or LuaLaTeX (not pdfLaTeX).
+% 2. The EB Garamond font is installed on your system.
+% 3. There are no conflicting packages (e.g., remove any \usepackage{lmodern}, \usepackage[T1]{fontenc}, or similar).
+% 4. The theme (if used) does not override fonts. Uncommenting \usetheme{metropolis} may override font settings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\title{Juego del Bien Público}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Contexto}
+Muchas personas se benefician de un “bien público” (limpieza de un parque, alumbrado, ciencia abierta). Todos disfrutan el resultado. Nadie puede ser excluido. El incentivo individual es no aportar y esperar que otros paguen. A esto se le llama free-riding.
+\end{frame}
+
+\begin{frame}{Definición de bien público}
+Un \textbf{bien público} (ejemplo: alumbrado, limpieza de un parque, ciencia abierta) es:
+\begin{itemize}
+  \item \textbf{No excluible}: todos lo disfrutan.
+  \item \textbf{No rival}: el consumo de uno no reduce el de otros.
+  \item \textbf{No cooperativo}: cada quien decide cuánto aportar sin coordinación, no se puede obligar a nadie ni negociar
+\end{itemize}
+El incentivo individual es \emph{no aportar} (free-rider).  
+El óptimo social requiere aportaciones positivas.
+\end{frame}
+
+\begin{frame}{Reglas del juego}
+\begin{itemize}
+  \item $e$: dotación que tiene cada jugador.
+  \item $n$ jugadores, cada uno recibe dotación $e$.
+  \item Cada jugador decide aportar $g_i \in [0,e]$.
+  \item Fondo común $G = \sum_j g_j$.
+  \item Se multiplica por factor $r$ y se reparte igual.
+  \item Pago:
+  \[
+  \pi_i = e - g_i + \frac{r}{n}G.
+  \]
+\end{itemize}
+Caso típico: $1<r<n \;\Rightarrow\; \text{MPCR (Marginal Per Capita Return)}=\tfrac{r}{n}<1$.
+\end{frame}
+
+\begin{frame}{Ejemplo numérico (2 jugadores)}
+Parámetros: $n=2$, $e=100$, $r=1.5$, estrategia: aportar $g=50$ o no aportar.  
+\begin{center}
+\begin{tabular}{c|cc}
+ & Aportar & No aportar \\\hline
+Aportar & (125,125) & (87.5,137.5) \\
+No aportar & (137.5,87.5) & (100,100) \\
+\end{tabular}
+\end{center}
+Interpretación: si ambos aportan ganan más (125), pero siempre hay incentivo a desviarse.
+\end{frame}
+
+\begin{frame}{Representación matricial (caso 2 jugadores)}
+Estrategias: Aportar (A) una fracción $g_i>0$ o No aportar (N). Sea dotación $e_i$ y retorno $r$ con $\frac{r}{2}\in(0,1)$.
+\begin{center}
+\scriptsize
+\begin{tabular}{c|cc}
+ & A & N \\\hline
+A & $\big(e_1-g_1+\tfrac{r}{2}(g_1+g_2),\; e_2-g_2+\tfrac{r}{2}(g_1+g_2)\big)$ 
+  & $\big(e_1-g_1+\tfrac{r}{2}(g_1+0),\; e_2-0+\tfrac{r}{2}(g_1+0)\big)$\\
+N & $\big(e_1-0+\tfrac{r}{2}(0+g_2),\; e_2-g_2+\tfrac{r}{2}(0+g_2)\big)$ 
+  & $\big(e_1,\; e_2\big)$
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Referencias académicas}
+\footnotesize
+\begin{itemize}
+\item Ledyard, J. O. (1995). Public Goods: A Survey of Experimental Research. En J. Kagel \& A. Roth (Eds.), \textit{The Handbook of Experimental Economics}. Princeton University Press.
+\item Fehr, E., \& Gächter, S. (2000). Cooperation and Punishment in Public Goods Experiments. \textit{American Economic Review}, 90(4), 980--994.
+\item Chaudhuri, A. (2011). Sustaining cooperation in laboratory public goods experiments: A selective survey. \textit{Experimental Economics}, 14, 47--83.
+\item Hardin, R. (1982). \textit{Collective Action}. Johns Hopkins University Press.
+\end{itemize}
+\vspace{0.5em}
+
+\end{frame}
+
+\end{document}
