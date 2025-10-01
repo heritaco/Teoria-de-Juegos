@@ -1,6 +1,6 @@
-\documentclass[9pt]{article}
+\documentclass[11pt]{article}
 
-\usepackage[letterpaper,margin=1cm]{geometry}
+\usepackage[letterpaper,margin=0.5cm]{geometry}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{enumitem}
 \setlist{nosep,leftmargin=*,itemsep=2pt,topsep=2pt}
@@ -15,10 +15,17 @@
 ]
 
 \usepackage{setspace}
-\setstretch{1.25}
+\setstretch{1.1}
 
 % remove number page
 \pagenumbering{gobble}
+
+% two columns
+\usepackage{multicol}
+
+% remove the indentation of the first paragraph of each section
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
 
 \newcommand{\br}{\mathrm{BR}}
 % ---------- Notation shortcuts ----------
@@ -30,8 +37,10 @@
 \newcommand{\BR}{\mathrm{BR}}
 \newcommand{\NE}{\text{NE}}
 \newcommand{\argmax}{\mathop{\mathrm{arg\,max}}}
-\begin{document}
 
+
+\begin{document}
+\begin{multicols}{2}
 \section*{Competitive Games — Cheat Sheet}
 
 \subsection*{Game types and representation}
@@ -178,6 +187,54 @@ A game is \textbf{finite} if the player set is finite and each $S_i$ is finite.
 
 
 \newpage
+\section*{Pareto Optimality — Cheat Sheet}
+
+\textbf{Pareto basics}
+\begin{itemize}
+  \item \textbf{Pareto dominance (strict):} Outcome $A$ \emph{Pareto-dominates} $B$ if every player is at least as well off in $A$ as in $B$ \textbf{and} someone is strictly better.
+  \item \textbf{Weak Pareto dominance:} Everyone is at least as well off in $A$ as in $B$ (no one worse), but possibly no one strictly better.
+  \item \textbf{Pareto improvement:} A move from $B \to A$ that strictly helps someone and hurts no one.
+  \item \textbf{Pareto optimal/efficient:} An outcome is Pareto efficient if \textbf{no} Pareto improvement exists from it.
+  \item \textbf{Pareto frontier:} The set of all Pareto-efficient outcomes.
+  \item \textbf{Pareto inferior:} An outcome that is dominated by some other outcome.
+\end{itemize}
+
+\textbf{Micro $2\times2$ example}
+
+Two players’ payoffs shown as $(\text{Row}, \text{Column})$.
+\[
+\begin{array}{c|cc}
+    & C_1     & C_2     \\\hline
+\text{R}_1 & (3,3)   & (1,4)   \\
+\text{R}_2 & (4,1)   & (2,2)
+\end{array}
+\]
+\begin{itemize}
+  \item $(3,3)$ \textbf{strictly Pareto-dominates} $(2,2)$ because $3\geq 2$ for both and someone is strictly better (both are).
+  \item $(1,4)$ and $(4,1)$ \textbf{do not dominate} each other (one player gains, the other loses).
+  \item \textbf{Pareto-efficient set (frontier):} $(3,3)$, $(1,4)$, $(4,1)$.
+  \item \textbf{Pareto-inferior:} $(2,2)$ (dominated by $(3,3)$).
+\end{itemize}
+
+\textbf{Prisoner’s Dilemma sketch}
+
+Typical payoffs:
+\begin{itemize}
+  \item Cooperate/Cooperate $\approx (-1,-1)$
+  \item Defect/Defect $\approx (-2,-2)$
+\end{itemize}
+Moving from $(-2,-2)$ to $(-1,-1)$ is a \textbf{Pareto improvement}. Yet $(D,D)$ can be the Nash equilibrium.
+
+\textbf{Takeaway:} \textbf{Pareto efficiency $\neq$ Nash equilibrium.}
+
+\textbf{Fast test (one step)}
+
+Using the $2\times2$ table above, is moving from $(2,2)$ to $(1,4)$ a \textbf{Pareto improvement}? Why or why not?
+
+\emph{Yes, because $(1,4)$ is strictly better for player 2 and no worse for player 1.}
+
+
+\newpage
 \section*{Dominance \& IESDS — Cheat Sheet}
 
 \subsection*{Notation}
@@ -292,35 +349,137 @@ Conclusion: the NE overuses the commons relative to Pareto optimum.
 \newpage
 \section*{Game Theory Cheat Sheet}
 
-\textbf{Normal-form game:} $\Gamma=(\Players,\{S_i\}_{i\in\Players},\{\vi\}_{i\in\Players})$, with $\vi:S_1\times\cdots\times S_n\to\mathbb{R}$. \\
-Pure strategies $s=(s_1,\dots,s_n)$, $s_i \in S_i, \forall i$\\
-opponents’ set $\Sii=\prod_{j\neq i}S_j$ \\
-profile $s_{-i}\in \Sii$.\\
-Payoff functions $\vi(s)=\vi(s_i,s_{-i})$. \\
-Matrix entries: Each entry in this matrix is an ordered pair $(v_1(s_1 = \{S_i\},s_2),v_2(s)$, where $v_1$ is the payoff to the row player and $v_2$ is the payoff to the column player. \\
-\textbf{Static, complete-information, common knowledge:} choices simultaneous; actions, outcomes, and preferences known. % sources
+\textbf{Normal-form game.} A normal-form game is denoted by
+\[
+\Gamma = \bigl(\Players, \{S_i\}_{i\in \Players}, \{v_i\}_{i\in \Players}\bigr),
+\]
+where each player $i\in\Players$ has a strategy set $S_i$ and a payoff function
+\[
+v_i : S_1 \times \cdots \times S_n \to \mathbb{R}.
+\]
+\textbf{Strategies.}  
+A pure strategy profile is $s=(s_1,\dots,s_n)$ with $s_i \in S_i$ for all $i$.  
+For player $i$, the opponents’ strategy set is
+\[
+S_{-i} = \prod_{j \neq i} S_j,
+\]
+and a typical profile of opponents’ strategies is $s_{-i}\in S_{-i}$.  
+Payoffs are written as $v_i(s) = v_i(s_i,s_{-i})$.
+\textbf{Matrix representation.}  
+In the two-player case, each matrix entry corresponds to an outcome $s=(s_1,s_2)$ and is written as
+\[
+\bigl(v_1(s_1,s_2), \; v_2(s_1,s_2)\bigr),
+\]
+where the first component is the row player’s payoff and the second is the column player’s payoff.\\
+\textbf{Assumptions.}  
+The standard framework is \emph{static, complete-information, and common knowledge}: players choose simultaneously; actions, outcomes, and preferences are known to all.
 
 \subsection*{Zero-sum vs.\ nonzero-sum}
-\textbf{Zero-sum (2p):} one matrix $A=(a_{ij})$ for row; column payoff $-a_{ij}$. \emph{Saddle point/value:} if $\max_i\min_j a_{ij}=\min_j\max_i a_{ij}=v$, the corresponding cell is a pure NE with game value $v$. Constant-sum reduces to zero-sum by affine shift.
-In a zero-sum game, the row player maximizes his minimal payoff $\min_j a_{ij}$ (maximin), while the column player minimizes the maximal drawdown $\max_i a_{ij}$ (minimax). If $\max_i\min_j a_{ij}<\min_j\max_i a_{ij}$, no pure NE exists. % sources: zero-sum basics, saddle point
-E. g., Battle of the Bismarck Sea, for the row player (Kenney) vs.\ column (Imamura):
-For Kenney the solution is $max(min(2,2),min(1,3))=2$ at North; for Imamura it is $min(max(2,1),max(2,3))=2$ at North. Thus $(\text{North},\text{North})$ is a saddle point with value $2$. % source: Bismarck Sea example
+
+\textbf{Zero-sum (2 players).}  
+A single payoff matrix $A=(a_{ij})$ describes the row player; the column player’s payoff is $-a_{ij}$.  
+\emph{Saddle point / value:} if
+\[
+\max_i \min_j a_{ij} \;=\; \min_j \max_i a_{ij} \;=\; v,
+\]
+then the corresponding cell is a pure Nash equilibrium with game value $v$.  
+A constant-sum game reduces to zero-sum by an affine shift.
+
+\textbf{Player objectives.}  
+- Row player: maximize his guaranteed payoff $\max_i \min_j a_{ij}$ (maximin).  
+- Column player: minimize the opponent’s maximum payoff $\min_j \max_i a_{ij}$ (minimax).  
+If $\max_i \min_j a_{ij} < \min_j \max_i a_{ij}$, no pure NE exists.
+
+\paragraph{Example: Battle of the Bismarck Sea.}
+- Kenney’s maximin: $\max\{\min(2,2),\,\min(1,3)\} = \max\{2,1\} = 2$ at North.  
+- Imamura’s minimax: $\min\{\max(2,1),\,\max(2,3)\} = \min\{2,3\} = 2$ at North.  Thus $(\text{North},\text{North})$ is a saddle point with value $2$.
+
 
 \subsection*{Dominance and IESDS (Iterated Elimination of Strictly Dominated Strategies)}
-\textbf{$s'_i$ is strictly dominated by $s_i$} if $\vi(s'_i,s_{-i})<\vi(s_i,s_{-i})$ for all $s_{-i}$. Rational players never use strictly dominated strategies. We say that $s_i \succ s'_i$.\\
-\textbf{Strictly dominant strategy:} $s_i \in S_i$ is a strictly dominant strategy for player $i$ if every other strategy is strictly dominated by it $s_i'\neq s_i$.
-$v_i(s_i,s_{-i})>v_i(s_i',s_{-i})$ for all $s_i'\neq s_i$, all $s_{-i}$, all $i$. A profile $s^D=(s_1^D,\dots,s_n^D)$ where each $s_i^D$ is strictly dominant is a strict DS equilibrium. If a game has a strict DS equilibrium, the profile is unique if it exists.\\
-\textit{Weak dominance:} $s_i$ weakly dominates $s'_i$ if $\vi(s_i,s_{-i})\geq \vi(s'_i,s_{-i})$ for all $s_{-i}$.\\
-\textbf{IESDS:} iteratively delete strictly dominated strategies in the reduced game until none remain; the survivors $S_i^K$ define the IESDS survivor set. Any profile $s^{ES}$ that survives IESDS is an iterated-elimination equilibrium. If a strict DS equilibrium $s^*$ exists, it uniquely survives IESDS.
 
-\subsection*{Nash equilibrium}
-\textbf{Definition (pure):} $s^*$ is a NE iff $\vi(s_i^*,s_{-i}^*)\ge \vi(t_i,s_{-i}^*)$ for all $t_i\in S_i$, all $i$. Equivalently $s_i^*\in \BR_i(s_{-i}^*)$, where $\BR_i(s_{-i})=\argmax_{t_i\in S_i}\vi(t_i,s_{-i})$.\\
-If $s^*$ is either $s^D$ or the \textit{unique} $s^{ES}$ survivor, then $s^*$ is the unique NE. If multiple $s^{ES}$ survive, they are all NE, but there may be other NE as well. If no $s^{ES}$ survives, NE may or may not exist, If a NE exists, it may or may not be Pareto-optimal. If NE exists, a strict DS equilibrium need not exist. If a strict DS equilibrium exists, it is the unique NE. If a NE exists, the IESDS survivor set may be empty, a singleton, or contain multiple profiles.\\
-\textbf{Matrix recipe (2p):} underline row best replies column-by-column; overline column best replies row-by-row; double-marked cells are pure NE. A strict DS profile or a unique IESDS survivor is the unique NE.\\
-\textbf{Continuous actions:} compute first-order conditions in $t_i$ to get $\BR_i$, then solve the system $t_i=\BR_i(t_{-i})$.
+\textbf{Strict dominance.}  
+A strategy $s'_i \in S_i$ is \emph{strictly dominated} by $s_i$ if
+\[
+v_i(s'_i,s_{-i}) < v_i(s_i,s_{-i}) \quad \forall\, s_{-i}\in S_{-i}.
+\]
+Rational players never choose strictly dominated strategies. We write $s_i \succ s'_i$.
+
+\textbf{Strictly dominant strategy.}  
+A strategy $s_i \in S_i$ is \emph{strictly dominant} for player $i$ if it strictly dominates every other strategy:
+\[
+v_i(s_i,s_{-i}) > v_i(s'_i,s_{-i}) \quad \forall\, s'_i \neq s_i,\;\forall\, s_{-i}.
+\]
+If each player $i$ has such a strategy $s_i^D$, the profile $s^D=(s_1^D,\dots,s_n^D)$ is a \emph{strict dominant-strategy equilibrium}.  
+If it exists, it is unique.
+
+\textbf{Weak dominance.}  
+Strategy $s_i$ weakly dominates $s'_i$ if
+\[
+v_i(s_i,s_{-i}) \geq v_i(s'_i,s_{-i}) \quad \forall\, s_{-i}.
+\]
+
+\textbf{IESDS.}  
+The \emph{Iterated Elimination of Strictly Dominated Strategies} proceeds by sequentially removing strictly dominated strategies from the game.  
+If $S_i^K$ denotes the surviving strategy set for each $i$, then any profile $s^{ES} \in \prod_i S_i^K$ is an \emph{iterated-elimination equilibrium}.  
+If a strict dominant-strategy equilibrium $s^*$ exists, it is the unique outcome that survives IESDS. Any profile $s^{ES}$ that survives IESDS is an iterated-elimination equilibrium. If a strict DS equilibrium $s^*$ exists, it uniquely survives IESDS.
+
+
+
+\subsection*{Nash Equilibrium}
+
+\textbf{Definition (pure strategies).}  
+A profile $s^*=(s_1^*,\dots,s_n^*)$ is a Nash equilibrium if
+\[
+v_i(s_i^*,s_{-i}^*) \;\ge\; v_i(t_i,s_{-i}^*) \quad \forall\, t_i \in S_i,\;\forall\, i.
+\]
+Equivalently,
+\[
+s_i^* \in \BR_i(s_{-i}^*), 
+\quad \text{where } \BR_i(s_{-i})=\arg\max_{t_i \in S_i} v_i(t_i,s_{-i}).
+\]
+
+\textbf{Relations with dominance.}  
+- If $s^*$ is a strict dominant-strategy profile $s^D$, then $s^*$ is the unique Nash equilibrium.  \\
+- If IESDS (Iterated Elimination of Strictly Dominated Strategies) leaves a unique survivor $s^{ES}$, then $s^{ES}$ is the unique Nash equilibrium.  \\
+- If multiple $s^{ES}$ survive, all are Nash equilibria (though others may exist too).  \\
+- If no $s^{ES}$ survives, a Nash equilibrium may still exist.  \\
+- A Nash equilibrium need not be Pareto-optimal.  \\
+- If a strict DS equilibrium exists, it is the unique Nash equilibrium.\\
+- If there is a strict DS equilibrium or a unique IESDS survivor, that profile is the unique Nash equilibrium.
+
+\textbf{Continuous actions.}  
+When strategy sets are continuous, compute the best-response functions by solving the first-order conditions in $t_i$, then solve the fixed-point system
+\[
+t_i = \BR_i(t_{-i}), \quad \forall i.
+\]
+
 
 \subsection*{Efficiency}
-\textbf{$s$ Pareto-dominates $s$} if $\vi(s)\ge \vi(s')$ $\forall i$ and $>$ for some $i$, in which case \textbf{$s'$ is Pareto-dominated by $s$.} An outcome is \textbf{Pareto-optimal} if it is not Pareto-dominated by any other outcome. 
+
+\textbf{Pareto dominance.}  
+An outcome $s$ \emph{Pareto-dominates} $s'$ if
+\[
+v_i(s) \ge v_i(s') \quad \forall i,
+\quad \text{and} \quad v_j(s) > v_j(s') \text{ for some } j.
+\]
+Equivalently, $s'$ is \emph{Pareto-dominated} by $s$.
+
+\textbf{Pareto-optimality.}  
+An outcome is \emph{Pareto-optimal} (or \emph{Pareto-efficient}) if it is not Pareto-dominated by any other outcome.  
+The collection of such outcomes forms the \emph{Pareto frontier}.
+
+Two players’ payoffs shown as $(\text{Row}, \text{Column})$.
+\[
+\begin{array}{c|cc}
+    & C_1     & C_2     \\\hline
+\text{R}_1 & (3,3)   & (1,4)   \\
+\text{R}_2 & (4,1)   & (2,2)
+\end{array}
+\]
+
+$(3,3)$ \textbf{strictly Pareto-dominates} $(2,2)$ because $3\geq 2$ for both and someone is strictly better (both are). $(1,4)$ and $(4,1)$ \textbf{do not dominate} each other (one player gains, the other loses). \textbf{Pareto-efficient set (frontier):} $(3,3)$, $(1,4)$, $(4,1)$. \textbf{Pareto-inferior:} $(2,2)$ (dominated by $(3,3)$).
+
+
 
 \subsection*{Canonical micro-examples (minimal forms)}
 \paragraph{Bismarck Sea (zero-sum).}
@@ -359,15 +518,18 @@ Two pure NE $(A,A)$ and $(B,B)$ (coordination).
 FOC $\Rightarrow \BR_i(k_{-i})=\dfrac{K-\sum_{j\ne i}k_j}{2}$.
 Solve $\Rightarrow k_1^*=k_2^*=\dfrac{K}{3}$ (NE). Planner $\max \sum_i v_i$ yields $k_1^\dagger=k_2^\dagger=\dfrac{K}{4}$ (overuse at NE).
 
-\subsection*{Workflow (one page)}
+
+
+
+\subsection*{Others}
+
+\textbf{Quick workflow (any normal-form game):}
 \begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
   \item Specify $(\Players,\{S_i\},\{\vi\})$; build matrix if $n=2$ and finite.
   \item Delete strictly dominated strategies; iterate (IESDS).
   \item Find pure NE by best-reply markings; for continuous actions solve $\{t_i=\BR_i(t_{-i})\}$.
   \item Compare NE to Pareto set.
 \end{enumerate}
-
-  \subsection*{Common Knowledge and Complete Information}
 
   \textbf{Definition (Common Knowledge):} An event $E$ is \emph{common knowledge} if:
   \begin{enumerate}[label=\arabic*)]
@@ -385,16 +547,18 @@ Solve $\Rightarrow k_1^*=k_2^*=\dfrac{K}{3}$ (NE). Planner $\max \sum_i v_i$ yie
     \item The preferences of each and every player over outcomes.
   \end{itemize}
 
-   Players are rational: A rational player is one who chooses his action,
- si ∈ Si, to maximize his payoff consistent with his beliefs about
- what is going on in the game.
- Players are intelligent: An intelligent player knows everything about
- the game: the actions, the outcomes, and the preferences of all the
- players.
- Common knowledge: The fact that players are rational and
- intelligent is common knowledge among the players of the game.
- Self-enforcement: It is the core of noncooperative game theory.
- Each player is in control own action, and he will stick to an action
- only if he finds it to be in his best interest
 
+  \textbf{Rationality, Intelligence, and Self-Enforcement}
+
+  \begin{itemize}
+    \item \textbf{Rationality:} Each player chooses their action $s_i \in S_i$ to maximize their own payoff, given their beliefs about the game.
+    \item \textbf{Intelligence:} Each player knows all aspects of the game: available actions, possible outcomes, and the preferences of all players.
+    \item \textbf{Common Knowledge:} It is common knowledge among all players that everyone is rational and intelligent.
+    \item \textbf{Self-Enforcement:} In noncooperative game theory, each player controls their own action and will only choose an action if it is in their best interest.
+  \end{itemize}
+
+
+
+
+\end{multicols}
 \end{document}
