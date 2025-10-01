@@ -1,8 +1,25 @@
-\documentclass[10pt]{article}
-\usepackage[a4paper,margin=1.9cm]{geometry}
+\documentclass[9pt]{article}
+
+\usepackage[letterpaper,margin=1cm]{geometry}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{enumitem}
 \setlist{nosep,leftmargin=*,itemsep=2pt,topsep=2pt}
+
+
+\usepackage{fontspec}
+\setmainfont{EB Garamond}[
+    UprightFont = * Regular,
+    ItalicFont = * Italic,
+    BoldFont = * SemiBold,
+    BoldItalicFont = * SemiBold Italic,
+]
+
+\usepackage{setspace}
+\setstretch{1.25}
+
+% remove number page
+\pagenumbering{gobble}
+
 \newcommand{\br}{\mathrm{BR}}
 % ---------- Notation shortcuts ----------
 %\newcommand{\Game}{\Gamma}
@@ -97,7 +114,7 @@ Profiles that survive IESDS are “iterated-elimination equilibria.”
 \subsection*{Extensive form (sequential) pointer}
 Sequential Battle of the Sexes: first-mover observed by second; analyze via the game tree (backward reasoning) to select credible outcomes.
 
-
+\newpage
 \section*{Normal-Form Games — Cheat Sheet}
 
 \subsection*{Core object}
@@ -160,7 +177,7 @@ A game is \textbf{finite} if the player set is finite and each $S_i$ is finite.
 \end{enumerate}
 
 
-
+\newpage
 \section*{Dominance \& IESDS — Cheat Sheet}
 
 \subsection*{Notation}
@@ -210,7 +227,7 @@ $s_i'$ is weakly dominated by $s_i$ if $v_i(s_i,s_{-i})\ge v_i(s_i',s_{-i})$ for
 \end{enumerate}
 
 
-
+\newpage
 \section*{Nash Equilibrium — Cheat Sheet}
 
 \subsection*{Core definitions}
@@ -273,9 +290,8 @@ Conclusion: the NE overuses the commons relative to Pareto optimum.
 
 
 \newpage
-\section*{Game Theory Cheat Sheet (Normal/Matrix Form)}
+\section*{Game Theory Cheat Sheet}
 
-\subsection*{Model}
 \textbf{Normal-form game:} $\Gamma=(\Players,\{S_i\}_{i\in\Players},\{\vi\}_{i\in\Players})$, with $\vi:S_1\times\cdots\times S_n\to\mathbb{R}$. \\
 Pure strategies $s=(s_1,\dots,s_n)$, $s_i \in S_i, \forall i$\\
 opponents’ set $\Sii=\prod_{j\neq i}S_j$ \\
